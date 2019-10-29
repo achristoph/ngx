@@ -1,0 +1,116 @@
+$font-size: 13px;
+$padding: 14px 0 14px 12px;
+$line-height: initial;
+$vertical-align: middle;
+$row_height: 48px;
+
+table {
+  width: 100%;
+  min-width: 1000px;
+}
+
+.sortable {
+  cursor: pointer;
+}
+
+th {
+  text-align: left;
+  input[type='text'].input-filter {
+    width: 100%;
+    height: 36px;
+    font-size: $font-size;
+    padding-left: 30px;
+    background-position: 8px;
+    background-image: url(/assets/icons/search.svg);
+    background-repeat: no-repeat;
+    background-size: 13px 13px;
+    border: 1px solid #a8afb3;
+    border-radius: 0px;
+  }
+}
+
+.viewport {
+  height: 580px;
+  max-height: 64vh;
+  border: 1px solid black;
+  overflow-y: overlay;
+}
+
+tbody {
+  max-height: 64vh;
+  tr:nth-child(1) {
+    border-top: solid 1px #bbccdd;
+  }
+  tr:nth-child(even) {
+    background: #ffffff;
+  }
+  tr:nth-child(odd) {
+    background: #f5f9fc;
+  }
+  tr {
+    border-bottom: solid 1px #bbccdd;
+    td {
+      padding: $padding;
+      font-size: $font-size;
+      line-height: $line-height;
+      vertical-align: $vertical-align;
+    }
+    &:hover {
+      background-color: #d4eefd;
+    }
+  }
+}
+
+thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+thead tr:nth-child(1) {
+  th {
+    padding: $padding;
+    font-size: $font-size;
+    line-height: $line-height;
+    vertical-align: $vertical-align;
+    span {
+      color: #151921;
+      text-decoration: none;
+      cursor: pointer;
+      &.asc::after {
+        content: '';
+        padding: 7px;
+        background: url(/assets/icons/sort_az.svg) 2px 3px no-repeat;
+        border: 0;
+        display: inline-block;
+        position: absolute;
+      }
+      &.desc::after {
+        content: '';
+        padding: 7px;
+        background: url(/assets/icons/sort_za.svg) 2px 3px no-repeat;
+        border: 0;
+        display: inline-block;
+        position: absolute;
+      }
+    }
+  }
+}
+
+.filter-placeholder {
+  height: 42px;
+}
+
+.input-filter-container {
+  margin-right: 32px;
+}
+
+.header-title {
+  margin-bottom: 12px;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,58 @@
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let n of columnNames">
+        <div
+          class="header-title"
+          *ngIf="columns[n].sort; else noSort"
+          (click)="adjustSort(n)"
+        >
+          <span [class.sortable]="{ sortable: sortKey$.value === n }">{{
+            columns[n].title
+          }}</span>
+          <span
+            *ngIf="sortKey$.value === n"
+            [class]="sortDirection$.value === 'asc' ? 'asc' : 'desc'"
+          ></span>
+        </div>
+        <ng-template #noSort>
+          <div class="header-title">
+            {{ columns[n].title }}
+          </div>
+        </ng-template>
+        <div class="input-filter-container">
+          <input
+            *ngIf="columns[n].filter; else filterPlaceholder"
+            type="text"
+            class="input-filter"
+            placeholder="Search…"
+            [formControl]="controls[n]"
+          />
+          <ng-template #filterPlaceholder>
+            <div class="filter-placeholder"></div>
+          </ng-template>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <cdk-virtual-scroll-viewport
+      [itemSize]="50"
+      class="viewport"
+      (scrolledIndexChange)="getNextBatch($event)"
+    >
+      <tr *cdkVirtualFor="let row of dataSource$">
+        <td *ngFor="let n of columnNames">
+          <ng-container *ngIf="columns[n].customTemplate; else default">
+            <ng-container
+              *ngTemplateOutlet="templates[n]; context: { $implicit: row[n] }"
+            ></ng-container>
+          </ng-container>
+          <ng-template #default>
+            {{ row[n] }}
+          </ng-template>
+        </td>
+      </tr>
+    </cdk-virtual-scroll-viewport>
+  </tbody>
+</table>
